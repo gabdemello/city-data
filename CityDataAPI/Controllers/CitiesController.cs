@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CityDataAPI.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CityDataAPI.Controllers
 {
@@ -7,15 +8,23 @@ namespace CityDataAPI.Controllers
     public class CitiesController: ControllerBase
     {
         [HttpGet]
-        public JsonResult GetCities()
+        public ActionResult<IEnumerable<CityDto>> GetCities()
         {
-            return new JsonResult(
-                new List<object>
-                {
-                    new {id = 1, Name = "São Paulo"},
-                    new {id = 2, Name = "Salvador"}
-                }
-            );
+            return Ok(CitiesDataStore.Current.Cities);
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<CityDto> GetCity(int id)
+        {
+            var cityToReturn = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == id);
+
+            if (cityToReturn == null)
+            {
+                return NotFound();
+            }
+               
+            return Ok(cityToReturn);
+
         }
     }
 }
