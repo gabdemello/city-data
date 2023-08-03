@@ -21,7 +21,7 @@ namespace CityDataAPI.Services
         {
             if(includePointsOfInterest)
             {
-                return await _context.Cities.Include(c => c.PointOfInterests)
+                return await _context.Cities.Include(c => c.PointsOfInterest)
                     .Where(c => c.Id == cityId).FirstOrDefaultAsync();
             }
 
