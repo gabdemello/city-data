@@ -62,15 +62,21 @@ namespace CityDataAPI.Controllers
         }
 
 
-        private CityDataUser ValidateUserCredentials(string? username, string? password)
+        private CityDataUser ValidateUserCredentials(string? userName, string? password)
         {
+            // we don't have a user DB or table.  If you have, check the passed-through
+            // username/password against what's stored in the database.
+            //
+            // For demo purposes, we assume the credentials are valid
+
+            // return a new CityInfoUser (values would normally come from your user DB/table)
+
             return new CityDataUser(
                 1,
-                username ?? "",
+                userName ?? "",
                 "John",
                 "Doe",
-                "New York"
-                ); 
+                "Salvador");
         }
     }
 }
